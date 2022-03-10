@@ -1,0 +1,32 @@
+//Запросим библиотеку mongoose
+const mongoose = require("mongoose");
+
+let type;
+const noteSchema = new mongoose.Schema(
+    {
+        content: {
+            type: String,
+            required: true
+        },
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        },
+        favoriteCount: {
+            type: Number,
+            default: 0
+        },
+        favoriteBy: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            },
+        ]
+    },
+    {
+        timestamps: true
+    }
+)
+
+const Note = mongoose.model('Note', noteSchema)
+module.exports = Note
